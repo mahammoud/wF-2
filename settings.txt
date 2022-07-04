@@ -1,2 +1,2 @@
-D:/chromedriver.exe
+%Enter your chromedriver 104.1 path here%
 1
