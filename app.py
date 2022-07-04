@@ -146,10 +146,21 @@ def scrape_video(video_box,datarows):
     datarow.append(tag_list)
     datarows.append(datarow)
     file_path = os.path.join(owd,title + '.mp4')
-    download_file("https://www.pexels.com/video/"+ f"{id}/"+"download",file_path, datarow)
     driver.find_element(By.CLASS_NAME,"Modal_close__ToR04").click()
     buttons = WebDriverWait(driver,10).until(EC.presence_of_all_elements_located((By.XPATH,'//*[@id="medium-download-size-selector-toggle-button"]')))
     for button in buttons:
+        if button.location['x'] != 0:
+            button.click()
+    try :
+        D_button = WebDriverWait(driver,10).until(EC.presence_of_all_elements_located((By.XPATH,'//[text()="Full HD"]')))
+    except :
+        D_button = WebDriverWait(driver,10).until(EC.presence_of_all_elements_located((By.XPATH,'//[text()="HD"]')))
+    for button in D_button:
+        if button.location['x'] != 0:
+            button.click()
+    last_button= WebDriverWait(driver,10).until(EC.presence_of_all_elements_located((By.XPATH,'//[@class="Button_buttonL4pRn spacing_noMarginQ_PsJ spacing_padding-right-302ajGb spacing_padding-left-30vk1Kz Button_fullWidthaWCYx Button_greengyIPZ Link_linkmTUkz spacing_noMarginQ_PsJ"]')))
+
+    for button in last_button:
         if button.location['x'] != 0:
             button.click()
     p = driver.current_window_handle
